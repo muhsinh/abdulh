@@ -524,22 +524,45 @@
             const [isContactOpen, setIsContactOpen] = useState(false);
             const [theme, setTheme] = useState('light');
 
-            // Theme Initialization
+            // Theme Initialization & System Listener
             useEffect(() => {
+                // 1. Define the media query for system dark mode
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                
+                // 2. Helper to apply theme
+                const applyTheme = (isDark) => {
+                    const newTheme = isDark ? 'dark' : 'light';
+                    setTheme(newTheme);
+                    document.documentElement.classList.toggle('dark', isDark);
+                };
+
+                // 3. Initial Logic: Check LocalStorage -> then System
                 const savedTheme = localStorage.getItem('theme');
                 if (savedTheme) {
-                    setTheme(savedTheme);
-                    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    setTheme('dark');
-                    document.documentElement.classList.add('dark');
+                    applyTheme(savedTheme === 'dark');
+                } else {
+                    applyTheme(mediaQuery.matches);
                 }
+
+                // 4. Live Listener: React to system changes (e.g. sunset/sunrise)
+                const handleSystemChange = (e) => {
+                    // Only switch automatically if the user hasn't manually set a preference
+                    if (!localStorage.getItem('theme')) {
+                        applyTheme(e.matches);
+                    }
+                };
+
+                mediaQuery.addEventListener('change', handleSystemChange);
+                
+                // Cleanup listener
+                return () => mediaQuery.removeEventListener('change', handleSystemChange);
             }, []);
 
             const toggleTheme = () => {
                 const newTheme = theme === 'light' ? 'dark' : 'light';
                 setTheme(newTheme);
                 document.documentElement.classList.toggle('dark', newTheme === 'dark');
+                // Save manual override to localStorage
                 localStorage.setItem('theme', newTheme);
             };
 

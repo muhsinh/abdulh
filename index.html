@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,25 +18,28 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Custom Scrollbar */
+        /* Custom Scrollbar - Subtle */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #02120a;
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #0e7490; /* Cyan 700 */
+            background: #cbd5e1; /* Slate 300 */
             border-radius: 4px;
         }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569; /* Slate 600 */
+        }
         ::-webkit-scrollbar-thumb:hover {
-            background: #155e75;
+            background: #94a3b8;
         }
 
         /* Smooth Scrolling */
@@ -45,23 +48,33 @@
         }
 
         body {
-            /* Dark Green Gradient - kept as requested */
-            background: linear-gradient(to bottom, #02140a, #050505);
-            color: #e5e5e5;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Reduced Motion Guard */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
 
         /* Animation Utilities */
         .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
 
         @keyframes fadeInUp {
@@ -86,7 +99,7 @@
             left: 0;
             background-color: currentColor;
             transform-origin: bottom right;
-            transition: transform 0.25s ease-out;
+            transition: transform 0.3s ease-out;
         }
 
         .link-underline:hover::after {
@@ -96,29 +109,37 @@
         
         /* Custom Selection */
         ::selection {
-            background: #22d3ee; /* Cyan 400 */
-            color: #000000;
+            background: #e0f2fe; 
+            color: #0284c7; 
+        }
+        .dark ::selection {
+            background: #0ea5e9;
+            color: #ffffff;
         }
     </style>
     
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        background: '#02120a',
-                        surface: '#0a0a0a',
-                        primary: '#e5e5e5',
-                        secondary: '#9ca3af',
-                        accent: '#22d3ee' // Cyan 400
+                        // Custom semantic colors if needed, 
+                        // but we will mostly use standard Tailwind Slate/Sky
+                        accent: '#0284c7', // Sky 600
+                        accentDark: '#38bdf8', // Sky 400 for dark mode
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 selection:bg-sky-200 dark:selection:bg-sky-900">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -130,22 +151,23 @@
                 name: "Abdul Muhsin Hameed",
                 email: "muhsinh@uw.edu",
                 linkedin: "https://www.linkedin.com/in/abdulmuhsinhameed",
-                tagline: "Neuroengineer | BCI | Empathetic Computing | AI",
-                bio: "I am a Neuroengineer utilizing Brain-Computer Interfaces (BCI), Empathetic Computing, and Artificial Intelligence to bridge the gap between rigorous neuroscience research and real-world application. My work focuses on leveraging machine learning for behavioral phenotyping and developing scientifically validated therapeutic technologies."
+                github: "https://github.com/muhsinh",
+                cvLink: "Abdul_CV (7).pdf", 
+                bio: "I'm a neuroengineer working at the intersection of BCI, empathetic computing, and AI. I build systems that turn raw neural and behavioral data into interpretable, actionable signals for mental health and clinical research."
             },
             education: [
                 {
                     school: "University of Washington",
                     degree: "BS in Psychology, Minor in Computational Neuroscience & Engineering",
-                    duration: "Sept 2023 - June 2027",
-                    coursework: "Computational Neuroscience, Machine Learning, Psychology of Perception, Organic Chemistry, Neuroanatomy, Cognitive Neuroscience, Linear Algebra"
+                    duration: "2023 - 2027",
+                    coursework: "Computational Neuroscience, Machine Learning, Psychology of Perception, Linear Algebra"
                 }
             ],
             experience: [
                 {
                     role: "Neuroengineer", 
                     company: "Cornell Weill School of Medicine / Tibbling Technologies",
-                    location: "Remote (NYC)",
+                    location: "Remote",
                     duration: "April 2025 - Present",
                     description: [
                         "Creating a neurotech platform for validated light and audio therapies.",
@@ -157,7 +179,7 @@
                     role: "Research Assistant (Li Lab)",
                     company: "Seattle Children's Research Institute",
                     location: "Seattle, WA",
-                    duration: "Oct 2024 - Present",
+                    duration: "Oct 2024 - Sep 2025",
                     description: [
                         "Implemented MoSeq2 (AR-HMM) for 3D mouse pose data analysis.",
                         "Characterized behavioral state transitions induced by pharmacological agents.",
@@ -167,12 +189,11 @@
                 {
                     role: "Associate Project Manager",
                     company: "Seattle Children's Research Institute",
-                    location: "Remote (Seattle)",
+                    location: "Remote",
                     duration: "Feb 2024 - Jan 2025",
                     description: [
                         "Spearheaded project-based research curriculum for high school students.",
-                        "Coordinated cross-departmental collaboration with clinicians and researchers.",
-                        "Mentored students in experimental design and poster preparation."
+                        "Coordinated cross-departmental collaboration with clinicians and researchers."
                     ]
                 },
                 {
@@ -182,43 +203,48 @@
                     duration: "Nov 2023 - Oct 2024",
                     description: [
                         "Analyzed maternal and neonatal outcomes using EPIC EHR data.",
-                        "Managed data collection via REDCap and performed targeted chart reviews.",
-                        "Assisted in drafting manuscripts for peer-reviewed publication."
+                        "Managed data collection via REDCap and performed targeted chart reviews."
                     ]
                 }
             ],
             projects: [
                 {
                     title: "Mindspace",
-                    tech: "BCI, Empathetic Computing, AI, Web Technologies",
-                    description: "A psychological auditing platform leveraging Brain-Computer Interfaces (BCI) and Artificial Intelligence. Mindspace bridges the gap between raw neural data and interpretable psychological states, creating an empathetic computing environment for mental health monitoring and feedback.",
+                    tech: "BCI, Empathetic Computing, AI",
+                    description: "A psychological auditing platform leveraging Brain-Computer Interfaces (BCI) and AI. Mindspace bridges the gap between raw neural data and interpretable psychological states.",
                     link: "https://muhsinh.github.io/mind.space/"
                 },
                 {
                     title: "Amazon AWS Pricing & Optimization Tool",
-                    tech: "Python, Boto3, Pandas, AWS API",
+                    tech: "Python, Boto3, Pandas",
                     description: "A tool leveraging AWS APIs to authenticate, list active EC2 instances, and algorithmically recommend cost-optimized migration strategies."
                 },
                 {
                     title: "MoSeq2 Behavioral Phenotyping",
-                    tech: "AR-HMM, Machine Learning, Computer Vision",
+                    tech: "AR-HMM, Machine Learning",
                     description: "Implementation of unsupervised segmentation of behavioral syllables in mice to link dynamics to neuromodulatory circuit disruption."
                 }
             ],
             publications: [
                 {
                     title: "Assessing the Deliriogenic Potential of Drugs in Mice",
-                    venue: "NeuroAI Seattle, 2025 (Pending)",
+                    venue: "NeuroAI Seattle",
+                    year: "2025",
+                    type: "Pending",
                     authors: "Hameed, A.M., Travis, M., Li, L., et al."
                 },
                 {
                     title: "Pregnant Patients With Positive Oral Health Screens Risks",
-                    venue: "PAS Conference 2025",
+                    venue: "PAS Conference",
+                    year: "2025",
+                    type: "Poster",
                     authors: "Martinez-King, C., Rose, C., Hameed, A.M., et al."
                 },
                 {
                     title: "Using Non-Dispersive Infrared Sensors to Measure CO2 Footprint",
-                    venue: "UW Research Symposium, 2022",
+                    venue: "UW Research Symposium",
+                    year: "2022",
+                    type: "Abstract",
                     authors: "Hameed, A.M., Doucette, S."
                 }
             ]
@@ -226,39 +252,51 @@
 
         // --- Components ---
 
+        const ThemeToggle = ({ theme, toggleTheme }) => (
+            <button 
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300"
+                aria-label="Toggle Dark Mode"
+            >
+                {theme === 'dark' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                )}
+            </button>
+        );
+
         const Modal = ({ isOpen, onClose, linkedinUrl }) => {
             if (!isOpen) return null;
 
             return (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-                    {/* Backdrop */}
                     <div 
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                        className="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm transition-opacity duration-300"
                         onClick={onClose}
                     ></div>
                     
-                    {/* Modal Content */}
-                    <div className="relative bg-[#0f1f15] border border-white/10 p-8 rounded-2xl max-w-sm w-full shadow-2xl transform transition-all scale-100">
+                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-2xl max-w-sm w-full shadow-2xl transform transition-all scale-100 animate-in fade-in zoom-in-95 duration-200">
                         <button 
                             onClick={onClose}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                            className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
 
-                        <h3 className="text-2xl font-bold text-white mb-2">Connect with me</h3>
-                        <p className="text-gray-400 text-sm mb-6">
-                            I am always open to discussing new opportunities in Neuroengineering and AI.
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 font-heading">Connect</h3>
+                        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+                            Open to discussing opportunities in Neuroengineering & AI.
                         </p>
 
                         <a 
                             href={linkedinUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full py-3 px-4 bg-[#0077b5] hover:bg-[#006396] text-white rounded-lg font-medium transition-colors mb-3"
+                            className="flex items-center justify-center w-full py-3 px-4 bg-[#0077b5] hover:bg-[#006396] text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
                         >
                             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            Connect on LinkedIn
+                            LinkedIn
                         </a>
                     </div>
                 </div>
@@ -266,29 +304,26 @@
         };
 
         const SectionHeader = ({ number, title }) => (
-            <div className="flex items-baseline mb-12 fade-in-up" style={{ animationDelay: '0.1s' }}>
-                <span className="text-cyan-500/50 font-mono text-sm mr-4">{number}</span>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-100">{title}</h2>
-                <div className="h-px bg-cyan-900/30 flex-grow ml-6"></div>
+            <div className="flex items-baseline mb-10 fade-in-up">
+                <span className="text-accent dark:text-accentDark font-bold font-heading text-sm mr-3">{number}</span>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white font-heading">{title}</h2>
             </div>
         );
 
-        const ExperienceCard = ({ exp, index }) => (
-            <div 
-                className="mb-12 group fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-            >
+        const ExperienceCard = ({ exp }) => (
+            <div className="mb-10 border-l-2 border-slate-200 dark:border-slate-800 pl-6 hover:border-accent dark:hover:border-accentDark transition-colors duration-300">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white font-heading">
                         {exp.role}
                     </h3>
-                    <span className="font-mono text-sm text-secondary">{exp.duration}</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{exp.duration}</span>
                 </div>
-                <div className="text-secondary text-sm mb-4 font-medium">{exp.company} — {exp.location}</div>
+                <div className="text-accent dark:text-accentDark text-sm mb-3 font-medium">
+                    {exp.company}
+                </div>
                 <ul className="space-y-2">
                     {exp.description.map((item, i) => (
-                        <li key={i} className="text-gray-400 text-sm md:text-base leading-relaxed flex items-start">
-                            <span className="mr-2 mt-1.5 w-1.5 h-1.5 bg-cyan-800 rounded-full flex-shrink-0"></span>
+                        <li key={i} className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
                             {item}
                         </li>
                     ))}
@@ -296,23 +331,25 @@
             </div>
         );
 
-        const ProjectCard = ({ project, index }) => {
+        const ProjectCard = ({ project }) => {
             const CardContent = () => (
                 <>
-                    <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">{project.title}</h3>
+                    <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white font-heading group-hover:text-accent dark:group-hover:text-accentDark transition-colors">{project.title}</h3>
                         {project.link && (
-                            <svg className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-accent dark:group-hover:text-accentDark transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                         )}
                     </div>
-                    <p className="text-cyan-500/80 text-xs font-mono mb-4 uppercase tracking-wider">{project.tech}</p>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <p className="text-slate-500 dark:text-slate-400 text-xs mb-3 font-mono">
+                        {project.tech}
+                    </p>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                         {project.description}
                     </p>
                 </>
             );
 
-            const containerClasses = "block p-6 border border-cyan-900/30 bg-[#0a0f0c] hover:bg-[#0f1a15] hover:border-cyan-500/30 transition-all duration-300 fade-in-up rounded-sm h-full";
+            const containerClasses = "block p-6 bg-white dark:bg-slate-900/50 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all duration-200 h-full";
 
             if (project.link) {
                 return (
@@ -321,7 +358,6 @@
                         target="_blank" 
                         rel="noopener noreferrer"
                         className={`${containerClasses} group cursor-pointer`}
-                        style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
                     >
                         <CardContent />
                     </a>
@@ -329,32 +365,26 @@
             }
 
             return (
-                <div 
-                    className={containerClasses}
-                    style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
-                >
+                <div className={containerClasses}>
                     <CardContent />
                 </div>
             );
         };
 
-        const PubItem = ({ pub, index }) => (
-            <div 
-                className="py-4 border-b border-cyan-900/20 fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-            >
-                <p className="text-lg text-gray-300 font-medium mb-1">{pub.title}</p>
-                <div className="flex flex-col md:flex-row md:justify-between text-sm text-gray-500">
-                    <span>{pub.venue}</span>
-                    <span className="mt-1 md:mt-0 italic">{pub.authors}</span>
+        const PubItem = ({ pub }) => (
+            <div className="py-4 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                <p className="text-base text-slate-900 dark:text-white font-medium mb-1 font-heading">{pub.title}</p>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <span className="text-accent dark:text-accentDark font-medium">{pub.venue}</span>
+                    <span className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-slate-500 dark:text-slate-400">{pub.year}</span>
+                    {pub.type && <span className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-slate-500 dark:text-slate-400">{pub.type}</span>}
                 </div>
             </div>
         );
 
-        const Navigation = ({ onContactClick }) => {
+        const Navigation = ({ onContactClick, theme, toggleTheme }) => {
             const [isScrolled, setIsScrolled] = useState(false);
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-            const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
 
             useEffect(() => {
                 const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -362,104 +392,63 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
-            // Close logo menu when clicking outside
-            useEffect(() => {
-                const handleClickOutside = (event) => {
-                    if (isLogoMenuOpen && !event.target.closest('.logo-container')) {
-                        setIsLogoMenuOpen(false);
-                    }
-                };
-                document.addEventListener('mousedown', handleClickOutside);
-                return () => document.removeEventListener('mousedown', handleClickOutside);
-            }, [isLogoMenuOpen]);
-
             const links = [
-                { name: 'About', href: '#about' },
                 { name: 'Experience', href: '#experience' },
                 { name: 'Projects', href: '#projects' },
+                { name: 'Research', href: '#publications' }, 
             ];
 
             return (
-                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#02140a]/90 backdrop-blur-md py-4 border-b border-white/5' : 'py-8 bg-transparent'}`}>
-                    <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 py-4' : 'py-6 bg-transparent'}`}>
+                    <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
                         
-                        {/* Interactive Logo Dot */}
-                        <div className="relative logo-container">
-                            <button 
-                                onClick={() => setIsLogoMenuOpen(!isLogoMenuOpen)}
-                                className="flex items-center gap-2 py-1.5 px-3 -ml-3 rounded-full hover:bg-cyan-900/20 transition-all duration-300 group focus:outline-none border border-transparent hover:border-cyan-500/20"
-                                aria-label="Show Social Links"
-                            >
-                                <div className={`w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)] transition-transform duration-300 ${isLogoMenuOpen ? 'scale-110' : 'group-hover:scale-110'}`}></div>
-                                <span className="text-xs font-medium text-cyan-400/80 group-hover:text-cyan-300 tracking-wide uppercase">Links</span>
-                                <svg 
-                                    className={`w-3 h-3 text-cyan-500/70 group-hover:text-cyan-400 transition-transform duration-300 ${isLogoMenuOpen ? 'rotate-180' : ''}`} 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-
-                            {/* Logo Menu Dropdown */}
-                            {isLogoMenuOpen && (
-                                <div className="absolute top-full left-0 mt-2 w-48 bg-[#0a0f0c] border border-cyan-900/30 rounded-lg shadow-2xl p-1 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 duration-200 backdrop-blur-xl">
-                                    <a href="https://github.com/muhsinh" target="_blank" rel="noreferrer" className="flex items-center px-3 py-3 text-sm text-gray-300 hover:bg-cyan-900/20 hover:text-white rounded-md transition-colors group">
-                                        <svg className="w-5 h-5 mr-3 text-cyan-500/70 group-hover:text-cyan-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"></path>
-                                        </svg>
-                                        GitHub
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/abdulmuhsinhameed" target="_blank" rel="noreferrer" className="flex items-center px-3 py-3 text-sm text-gray-300 hover:bg-cyan-900/20 hover:text-white rounded-md transition-colors group">
-                                        <svg className="w-5 h-5 mr-3 text-cyan-500/70 group-hover:text-cyan-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd"></path>
-                                        </svg>
-                                        LinkedIn
-                                    </a>
-                                </div>
-                            )}
-                        </div>
+                        <a href="#" className="text-lg font-bold tracking-tight text-slate-900 dark:text-white font-heading hover:text-accent dark:hover:text-accentDark transition-colors">
+                            AMH.
+                        </a>
                         
                         {/* Desktop Nav */}
-                        <div className="hidden md:flex space-x-8 items-center">
+                        <div className="hidden md:flex items-center gap-8">
                             {links.map(link => (
                                 <a 
                                     key={link.name} 
                                     href={link.href} 
-                                    className="text-sm text-gray-400 hover:text-white transition-colors link-underline"
+                                    className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors link-underline"
                                 >
                                     {link.name}
                                 </a>
                             ))}
+                            
+                            <div className="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
+
+                            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+
                             <button 
                                 onClick={onContactClick}
-                                className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+                                className="text-sm font-bold text-accent dark:text-accentDark hover:text-sky-700 dark:hover:text-sky-300 transition-colors tracking-tight ml-2"
                             >
-                                Contact
+                                CONTACT
                             </button>
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <button 
-                            className="md:hidden text-white z-50 relative"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        >
-                            {isMobileMenuOpen ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            ) : (
+                        <div className="flex items-center gap-4 md:hidden">
+                            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                            <button 
+                                className="text-slate-900 dark:text-white z-50 relative p-1"
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                            )}
-                        </button>
+                            </button>
+                        </div>
 
                         {/* Mobile Nav Overlay */}
                         {isMobileMenuOpen && (
-                            <div className="fixed inset-0 bg-[#050a07] flex flex-col justify-center items-center space-y-8 z-40">
+                            <div className="fixed inset-0 bg-white dark:bg-slate-950 z-40 flex flex-col justify-center items-center space-y-8 animate-in fade-in duration-200">
                                 {links.map(link => (
                                     <a 
                                         key={link.name} 
                                         href={link.href} 
-                                        className="text-2xl font-light text-gray-300"
+                                        className="text-2xl font-heading font-bold text-slate-900 dark:text-white"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         {link.name}
@@ -470,9 +459,15 @@
                                         setIsMobileMenuOpen(false);
                                         onContactClick();
                                     }}
-                                    className="text-2xl font-light text-cyan-400"
+                                    className="text-xl font-bold text-accent dark:text-accentDark"
                                 >
                                     Contact
+                                </button>
+                                <button 
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="absolute top-6 right-6 text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </button>
                             </div>
                         )}
@@ -484,6 +479,26 @@
         const App = () => {
             const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
             const [isContactOpen, setIsContactOpen] = useState(false);
+            const [theme, setTheme] = useState('light');
+
+            // Theme Initialization
+            useEffect(() => {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    setTheme('dark');
+                    document.documentElement.classList.add('dark');
+                }
+            }, []);
+
+            const toggleTheme = () => {
+                const newTheme = theme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+                document.documentElement.classList.toggle('dark', newTheme === 'dark');
+                localStorage.setItem('theme', newTheme);
+            };
 
             useEffect(() => {
                 const handleMouseMove = (e) => {
@@ -494,18 +509,22 @@
             }, []);
 
             return (
-                <div className="min-h-screen relative selection:bg-cyan-400 selection:text-black">
-                    {/* Custom Cursor Follower (Desktop only cosmetic) */}
+                <div className="min-h-screen relative">
+                    
+                    {/* Calmed Aura Cursor */}
                     <div 
-                        className="hidden md:block fixed w-8 h-8 border border-cyan-400/30 rounded-full pointer-events-none transition-transform duration-100 z-50 mix-blend-difference"
+                        className="hidden md:block fixed pointer-events-none z-0 transition-transform duration-100 ease-out will-change-transform"
                         style={{ 
-                            left: mousePosition.x, 
-                            top: mousePosition.y,
-                            transform: 'translate(-50%, -50%)'
+                            left: 0, 
+                            top: 0,
+                            transform: `translate3d(${mousePosition.x - 200}px, ${mousePosition.y - 200}px, 0)`
                         }}
-                    />
+                    >
+                        {/* Adaptive Glow Color */}
+                        <div className="w-[400px] h-[400px] rounded-full bg-sky-200/15 dark:bg-sky-500/5 blur-[80px]"></div>
+                    </div>
 
-                    <Navigation onContactClick={() => setIsContactOpen(true)} />
+                    <Navigation onContactClick={() => setIsContactOpen(true)} theme={theme} toggleTheme={toggleTheme} />
                     
                     <Modal 
                         isOpen={isContactOpen} 
@@ -513,109 +532,138 @@
                         linkedinUrl={portfolioData.personal.linkedin}
                     />
 
-                    <main className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+                    <main className="max-w-5xl mx-auto px-6 pt-32 pb-20 relative z-10">
                         
                         {/* Hero Section */}
-                        <section className="min-h-[80vh] flex flex-col justify-center mb-20">
-                            <p className="text-cyan-400 font-mono mb-6 fade-in-up tracking-wide">Hello, I am</p>
-                            <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight tracking-tight fade-in-up text-white" style={{ animationDelay: '0.1s' }}>
-                                Abdul Muhsin<br/>Hameed.
+                        <section className="min-h-[70vh] flex flex-col justify-center mb-20 relative">
+                            {/* Minimalist BG Blob */}
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-slate-100/50 dark:bg-slate-900/30 rounded-full blur-3xl -z-10"></div>
+
+                            <p className="text-accent dark:text-accentDark font-bold font-heading mb-4 fade-in-up tracking-wide text-sm">
+                                ABDUL MUHSIN HAMEED
+                            </p>
+                            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-[1.1] tracking-tight fade-in-up text-slate-900 dark:text-white font-heading" style={{ animationDelay: '0.1s' }}>
+                                Bridging <span className="text-accent dark:text-accentDark">Neuroscience</span>,<br/>
+                                <span className="text-indigo-600 dark:text-indigo-400">Engineering</span>, <span className="text-accent dark:text-accentDark">Psychology</span>,<br/>
+                                and <span className="text-indigo-600 dark:text-indigo-400">Data</span>.
                             </h1>
-                            <h2 className="text-2xl md:text-4xl text-secondary font-light max-w-4xl fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
-                                Bridging <span className="text-cyan-400 font-normal">Neuroscience</span>, <span className="text-blue-400 font-normal">Engineering</span>, <span className="text-violet-400 font-normal">Psychology</span>, and <span className="text-fuchsia-400 font-normal">Data</span>.
-                            </h2>
-                            <p className="mt-8 text-gray-400 max-w-xl leading-relaxed fade-in-up" style={{ animationDelay: '0.3s' }}>
+                            <p className="mt-6 text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed fade-in-up text-lg" style={{ animationDelay: '0.2s' }}>
                                 {portfolioData.personal.bio}
                             </p>
-                            <div className="mt-12 fade-in-up" style={{ animationDelay: '0.4s' }}>
-                                <a href="#experience" className="inline-block px-8 py-3 border border-cyan-500/30 text-cyan-50 hover:bg-cyan-500/10 transition-all duration-300 rounded-full mr-4">
+                            
+                            <div className="mt-10 fade-in-up flex flex-col md:flex-row items-center gap-4" style={{ animationDelay: '0.3s' }}>
+                                {/* Updated Buttons with Gradients */}
+                                <a 
+                                    href={portfolioData.personal.github} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="w-full md:w-auto text-center px-6 py-3 
+                                    bg-gradient-to-br from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black 
+                                    dark:bg-gradient-to-br dark:from-slate-100 dark:to-slate-300 dark:hover:from-white dark:hover:to-slate-200
+                                    text-white dark:text-slate-900 
+                                    transition-all duration-300 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                                >
                                     See my work
+                                </a>
+                                <a 
+                                    href={portfolioData.personal.cvLink} 
+                                    download
+                                    className="w-full md:w-auto text-center px-6 py-3 
+                                    bg-gradient-to-br from-white to-slate-100 hover:from-slate-50 hover:to-slate-200
+                                    dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 dark:hover:from-slate-700 dark:hover:to-slate-800
+                                    text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 
+                                    transition-all duration-300 rounded-lg font-semibold hover:shadow-md"
+                                >
+                                    Download CV
                                 </a>
                                 <button 
                                     onClick={() => setIsContactOpen(true)}
-                                    className="inline-block px-8 py-3 text-gray-400 hover:text-white transition-colors"
+                                    className="w-full md:w-auto text-center px-6 py-3 
+                                    bg-gradient-to-br from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300
+                                    dark:bg-gradient-to-br dark:from-slate-700 dark:to-slate-800 dark:hover:from-slate-600 dark:hover:to-slate-700
+                                    text-slate-700 dark:text-slate-200 
+                                    transition-all duration-300 rounded-lg font-semibold hover:shadow-sm"
                                 >
                                     Get in touch
                                 </button>
                             </div>
                         </section>
 
-                        {/* About / Education Section */}
-                        <section id="about" className="mb-32">
-                            <SectionHeader number="01" title="Education & Background" />
+                        {/* Experience Section */}
+                        <section id="experience" className="mb-24">
+                            <SectionHeader number="01" title="Experience" />
                             <div className="grid md:grid-cols-12 gap-12">
-                                <div className="md:col-span-5 text-secondary font-mono text-sm uppercase tracking-wider">
-                                    Academic Focus
+                                <div className="md:col-span-3 hidden md:block sticky top-32 h-fit">
+                                    <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                                        Clinical research meets neurotech innovation.
+                                    </p>
                                 </div>
-                                <div className="md:col-span-7">
+                                <div className="md:col-span-9">
+                                    {portfolioData.experience.map((exp, index) => (
+                                        <ExperienceCard key={index} exp={exp} />
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Projects Section */}
+                        <section id="projects" className="mb-24">
+                            <SectionHeader number="02" title="Projects" />
+                            <div className="grid md:grid-cols-2 gap-6">
+                                {portfolioData.projects.map((project, index) => (
+                                    <ProjectCard key={index} project={project} />
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Publications / Education Combo */}
+                        <section id="publications" className="mb-32">
+                             <SectionHeader number="03" title="Research & Background" />
+                             <div className="grid md:grid-cols-2 gap-12">
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-heading flex items-center">
+                                        Publications
+                                    </h3>
+                                    <div className="bg-white dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 p-6 shadow-sm">
+                                        {portfolioData.publications.map((pub, index) => (
+                                            <PubItem key={index} pub={pub} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-heading flex items-center">
+                                        Education
+                                    </h3>
                                     {portfolioData.education.map((edu, i) => (
-                                        <div key={i} className="mb-8">
-                                            <h3 className="text-2xl font-bold text-white mb-2">{edu.school}</h3>
-                                            <p className="text-lg text-cyan-400 mb-4">{edu.degree}</p>
-                                            <p className="text-gray-400 leading-relaxed mb-4">
-                                                <strong className="text-gray-200">Relevant Coursework:</strong> {edu.coursework}
+                                        <div key={i} className="bg-white dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 p-6 shadow-sm">
+                                            <h4 className="text-lg font-bold text-slate-900 dark:text-white font-heading">{edu.school}</h4>
+                                            <p className="text-accent dark:text-accentDark font-medium mb-2">{edu.degree}</p>
+                                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                                                {edu.coursework}
                                             </p>
-                                            <p className="font-mono text-xs text-gray-500">{edu.duration}</p>
+                                            <div className="text-xs font-mono text-slate-400 dark:text-slate-500">{edu.duration}</div>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                        </section>
-
-                        {/* Experience Section */}
-                        <section id="experience" className="mb-32">
-                            <SectionHeader number="02" title="Experience" />
-                            <div className="grid md:grid-cols-12 gap-12">
-                                <div className="md:col-span-4 hidden md:block sticky top-32 h-fit">
-                                    <p className="text-secondary text-sm leading-relaxed">
-                                        My work spans from clinical research at major hospitals to neurotech development in startups. I specialize in data pipelines, project management, and behavioral phenotyping.
-                                    </p>
-                                </div>
-                                <div className="md:col-span-8">
-                                    {portfolioData.experience.map((exp, index) => (
-                                        <ExperienceCard key={index} exp={exp} index={index} />
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Projects & Research Section */}
-                        <section id="projects" className="mb-32">
-                            <SectionHeader number="03" title="Projects & Research" />
-                            
-                            <div className="grid md:grid-cols-2 gap-6 mb-20">
-                                {portfolioData.projects.map((project, index) => (
-                                    <ProjectCard key={index} project={project} index={index} />
-                                ))}
-                            </div>
-
-                            <div className="mb-12">
-                                <h3 className="text-xl font-bold text-white mb-8 flex items-center">
-                                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
-                                    Selected Publications & Presentations
-                                </h3>
-                                <div className="space-y-2">
-                                    {portfolioData.publications.map((pub, index) => (
-                                        <PubItem key={index} pub={pub} index={index} />
-                                    ))}
-                                </div>
-                            </div>
+                             </div>
                         </section>
 
                         {/* Footer */}
-                        <section id="contact" className="py-20 text-center border-t border-cyan-900/20">
-                            <h2 className="text-4xl md:text-6xl font-bold mb-8">Let's Connect</h2>
-                            <p className="text-gray-400 max-w-xl mx-auto mb-12 text-lg">
-                                Exploring the intersection of brain and machine.
-                            </p>
-                            <button 
-                                onClick={() => setIsContactOpen(true)}
-                                className="inline-block px-10 py-4 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-500 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-cyan-900/20"
-                            >
-                                Say Hello
-                            </button>
-                            
-                            <p className="mt-24 text-xs text-gray-700">
+                        <section id="contact" className="py-20 border-t border-slate-100 dark:border-slate-800">
+                            <div className="flex flex-col md:flex-row justify-between items-center">
+                                <div className="mb-8 md:mb-0">
+                                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white font-heading mb-2">Let's Connect</h2>
+                                    <p className="text-slate-600 dark:text-slate-400">
+                                        Currently exploring new opportunities.
+                                    </p>
+                                </div>
+                                <div className="flex gap-6">
+                                    <a href={portfolioData.personal.github} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">GitHub</a>
+                                    <a href={portfolioData.personal.linkedin} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">LinkedIn</a>
+                                    <a href={`mailto:${portfolioData.personal.email}`} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Email</a>
+                                </div>
+                            </div>
+                            <p className="mt-12 text-xs text-slate-400 dark:text-slate-600 text-center md:text-left">
                                 © {new Date().getFullYear()} Abdul Muhsin Hameed.
                             </p>
                         </section>

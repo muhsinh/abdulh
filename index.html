@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Muhsin Hameed | Neuroengineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #02120a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0e7490; /* Cyan 700 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #155e75;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* Dark Green Gradient - kept as requested */
+            background: linear-gradient(to bottom, #02140a, #050505);
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Animation Utilities */
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .link-underline {
+            position: relative;
+            text-decoration: none;
+        }
+
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .link-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        /* Custom Selection */
+        ::selection {
+            background: #22d3ee; /* Cyan 400 */
+            color: #000000;
+        }
+    </style>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#02120a',
+                        surface: '#0a0a0a',
+                        primary: '#e5e5e5',
+                        secondary: '#9ca3af',
+                        accent: '#22d3ee' // Cyan 400
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- Data from CV ---
+        const portfolioData = {
+            personal: {
+                name: "Abdul Muhsin Hameed",
+                email: "muhsinh@uw.edu",
+                linkedin: "https://www.linkedin.com/in/abdulmuhsinhameed",
+                tagline: "Neuroengineer | BCI | Empathetic Computing | AI",
+                bio: "I am a Neuroengineer utilizing Brain-Computer Interfaces (BCI), Empathetic Computing, and Artificial Intelligence to bridge the gap between rigorous neuroscience research and real-world application. My work focuses on leveraging machine learning for behavioral phenotyping and developing scientifically validated therapeutic technologies."
+            },
+            education: [
+                {
+                    school: "University of Washington",
+                    degree: "BS in Psychology, Minor in Computational Neuroscience & Engineering",
+                    duration: "Sept 2023 - June 2027",
+                    coursework: "Computational Neuroscience, Machine Learning, Psychology of Perception, Organic Chemistry, Neuroanatomy, Cognitive Neuroscience, Linear Algebra"
+                }
+            ],
+            experience: [
+                {
+                    role: "Neuroengineer", 
+                    company: "Cornell Weill School of Medicine / Tibbling Technologies",
+                    location: "Remote (NYC)",
+                    duration: "April 2025 - Present",
+                    description: [
+                        "Creating a neurotech platform for validated light and audio therapies.",
+                        "Establishing a research-to-product pipeline bridging computational modeling and generative AI.",
+                        "Positioning systems for clinical adoption through large-scale trial funding partnerships."
+                    ]
+                },
+                {
+                    role: "Research Assistant (Li Lab)",
+                    company: "Seattle Children's Research Institute",
+                    location: "Seattle, WA",
+                    duration: "Oct 2024 - Present",
+                    description: [
+                        "Implemented MoSeq2 (AR-HMM) for 3D mouse pose data analysis.",
+                        "Characterized behavioral state transitions induced by pharmacological agents.",
+                        "Developed robust video preprocessing pipelines for scalable phenotyping."
+                    ]
+                },
+                {
+                    role: "Associate Project Manager",
+                    company: "Seattle Children's Research Institute",
+                    location: "Remote (Seattle)",
+                    duration: "Feb 2024 - Jan 2025",
+                    description: [
+                        "Spearheaded project-based research curriculum for high school students.",
+                        "Coordinated cross-departmental collaboration with clinicians and researchers.",
+                        "Mentored students in experimental design and poster preparation."
+                    ]
+                },
+                {
+                    role: "Research Assistant",
+                    company: "University of Washington School of Medicine",
+                    location: "Seattle, WA",
+                    duration: "Nov 2023 - Oct 2024",
+                    description: [
+                        "Analyzed maternal and neonatal outcomes using EPIC EHR data.",
+                        "Managed data collection via REDCap and performed targeted chart reviews.",
+                        "Assisted in drafting manuscripts for peer-reviewed publication."
+                    ]
+                }
+            ],
+            projects: [
+                {
+                    title: "Mindspace",
+                    tech: "BCI, Empathetic Computing, AI, Web Technologies",
+                    description: "A psychological auditing platform leveraging Brain-Computer Interfaces (BCI) and Artificial Intelligence. Mindspace bridges the gap between raw neural data and interpretable psychological states, creating an empathetic computing environment for mental health monitoring and feedback.",
+                    link: "https://muhsinh.github.io/mind.space/"
+                },
+                {
+                    title: "Amazon AWS Pricing & Optimization Tool",
+                    tech: "Python, Boto3, Pandas, AWS API",
+                    description: "A tool leveraging AWS APIs to authenticate, list active EC2 instances, and algorithmically recommend cost-optimized migration strategies."
+                },
+                {
+                    title: "MoSeq2 Behavioral Phenotyping",
+                    tech: "AR-HMM, Machine Learning, Computer Vision",
+                    description: "Implementation of unsupervised segmentation of behavioral syllables in mice to link dynamics to neuromodulatory circuit disruption."
+                }
+            ],
+            publications: [
+                {
+                    title: "Assessing the Deliriogenic Potential of Drugs in Mice",
+                    venue: "NeuroAI Seattle, 2025 (Pending)",
+                    authors: "Hameed, A.M., Travis, M., Li, L., et al."
+                },
+                {
+                    title: "Pregnant Patients With Positive Oral Health Screens Risks",
+                    venue: "PAS Conference 2025",
+                    authors: "Martinez-King, C., Rose, C., Hameed, A.M., et al."
+                },
+                {
+                    title: "Using Non-Dispersive Infrared Sensors to Measure CO2 Footprint",
+                    venue: "UW Research Symposium, 2022",
+                    authors: "Hameed, A.M., Doucette, S."
+                }
+            ]
+        };
+
+        // --- Components ---
+
+        const Modal = ({ isOpen, onClose, linkedinUrl }) => {
+            if (!isOpen) return null;
+
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                    {/* Backdrop */}
+                    <div 
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                        onClick={onClose}
+                    ></div>
+                    
+                    {/* Modal Content */}
+                    <div className="relative bg-[#0f1f15] border border-white/10 p-8 rounded-2xl max-w-sm w-full shadow-2xl transform transition-all scale-100">
+                        <button 
+                            onClick={onClose}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+
+                        <h3 className="text-2xl font-bold text-white mb-2">Connect with me</h3>
+                        <p className="text-gray-400 text-sm mb-6">
+                            I am always open to discussing new opportunities in Neuroengineering and AI.
+                        </p>
+
+                        <a 
+                            href={linkedinUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-full py-3 px-4 bg-[#0077b5] hover:bg-[#006396] text-white rounded-lg font-medium transition-colors mb-3"
+                        >
+                            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            Connect on LinkedIn
+                        </a>
+                    </div>
+                </div>
+            );
+        };
+
+        const SectionHeader = ({ number, title }) => (
+            <div className="flex items-baseline mb-12 fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <span className="text-cyan-500/50 font-mono text-sm mr-4">{number}</span>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-100">{title}</h2>
+                <div className="h-px bg-cyan-900/30 flex-grow ml-6"></div>
+            </div>
+        );
+
+        const ExperienceCard = ({ exp, index }) => (
+            <div 
+                className="mb-12 group fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+            >
+                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300">
+                        {exp.role}
+                    </h3>
+                    <span className="font-mono text-sm text-secondary">{exp.duration}</span>
+                </div>
+                <div className="text-secondary text-sm mb-4 font-medium">{exp.company} — {exp.location}</div>
+                <ul className="space-y-2">
+                    {exp.description.map((item, i) => (
+                        <li key={i} className="text-gray-400 text-sm md:text-base leading-relaxed flex items-start">
+                            <span className="mr-2 mt-1.5 w-1.5 h-1.5 bg-cyan-800 rounded-full flex-shrink-0"></span>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+
+        const ProjectCard = ({ project, index }) => {
+            const CardContent = () => (
+                <>
+                    <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">{project.title}</h3>
+                        {project.link && (
+                            <svg className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        )}
+                    </div>
+                    <p className="text-cyan-500/80 text-xs font-mono mb-4 uppercase tracking-wider">{project.tech}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                        {project.description}
+                    </p>
+                </>
+            );
+
+            const containerClasses = "block p-6 border border-cyan-900/30 bg-[#0a0f0c] hover:bg-[#0f1a15] hover:border-cyan-500/30 transition-all duration-300 fade-in-up rounded-sm h-full";
+
+            if (project.link) {
+                return (
+                    <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={`${containerClasses} group cursor-pointer`}
+                        style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
+                    >
+                        <CardContent />
+                    </a>
+                );
+            }
+
+            return (
+                <div 
+                    className={containerClasses}
+                    style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
+                >
+                    <CardContent />
+                </div>
+            );
+        };
+
+        const PubItem = ({ pub, index }) => (
+            <div 
+                className="py-4 border-b border-cyan-900/20 fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+            >
+                <p className="text-lg text-gray-300 font-medium mb-1">{pub.title}</p>
+                <div className="flex flex-col md:flex-row md:justify-between text-sm text-gray-500">
+                    <span>{pub.venue}</span>
+                    <span className="mt-1 md:mt-0 italic">{pub.authors}</span>
+                </div>
+            </div>
+        );
+
+        const Navigation = ({ onContactClick }) => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+            const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            // Close logo menu when clicking outside
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (isLogoMenuOpen && !event.target.closest('.logo-container')) {
+                        setIsLogoMenuOpen(false);
+                    }
+                };
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => document.removeEventListener('mousedown', handleClickOutside);
+            }, [isLogoMenuOpen]);
+
+            const links = [
+                { name: 'About', href: '#about' },
+                { name: 'Experience', href: '#experience' },
+                { name: 'Projects', href: '#projects' },
+            ];
+
+            return (
+                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#02140a]/90 backdrop-blur-md py-4 border-b border-white/5' : 'py-8 bg-transparent'}`}>
+                    <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+                        
+                        {/* Interactive Logo Dot */}
+                        <div className="relative logo-container">
+                            <button 
+                                onClick={() => setIsLogoMenuOpen(!isLogoMenuOpen)}
+                                className="flex items-center gap-2 py-1.5 px-3 -ml-3 rounded-full hover:bg-cyan-900/20 transition-all duration-300 group focus:outline-none border border-transparent hover:border-cyan-500/20"
+                                aria-label="Show Social Links"
+                            >
+                                <div className={`w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)] transition-transform duration-300 ${isLogoMenuOpen ? 'scale-110' : 'group-hover:scale-110'}`}></div>
+                                <span className="text-xs font-medium text-cyan-400/80 group-hover:text-cyan-300 tracking-wide uppercase">Links</span>
+                                <svg 
+                                    className={`w-3 h-3 text-cyan-500/70 group-hover:text-cyan-400 transition-transform duration-300 ${isLogoMenuOpen ? 'rotate-180' : ''}`} 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Logo Menu Dropdown */}
+                            {isLogoMenuOpen && (
+                                <div className="absolute top-full left-0 mt-2 w-48 bg-[#0a0f0c] border border-cyan-900/30 rounded-lg shadow-2xl p-1 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 duration-200 backdrop-blur-xl">
+                                    <a href="https://github.com/muhsinh" target="_blank" rel="noreferrer" className="flex items-center px-3 py-3 text-sm text-gray-300 hover:bg-cyan-900/20 hover:text-white rounded-md transition-colors group">
+                                        <svg className="w-5 h-5 mr-3 text-cyan-500/70 group-hover:text-cyan-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"></path>
+                                        </svg>
+                                        GitHub
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/abdulmuhsinhameed" target="_blank" rel="noreferrer" className="flex items-center px-3 py-3 text-sm text-gray-300 hover:bg-cyan-900/20 hover:text-white rounded-md transition-colors group">
+                                        <svg className="w-5 h-5 mr-3 text-cyan-500/70 group-hover:text-cyan-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd"></path>
+                                        </svg>
+                                        LinkedIn
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Desktop Nav */}
+                        <div className="hidden md:flex space-x-8 items-center">
+                            {links.map(link => (
+                                <a 
+                                    key={link.name} 
+                                    href={link.href} 
+                                    className="text-sm text-gray-400 hover:text-white transition-colors link-underline"
+                                >
+                                    {link.name}
+                                </a>
+                            ))}
+                            <button 
+                                onClick={onContactClick}
+                                className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+                            >
+                                Contact
+                            </button>
+                        </div>
+
+                        {/* Mobile Menu Button */}
+                        <button 
+                            className="md:hidden text-white z-50 relative"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        >
+                            {isMobileMenuOpen ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                            )}
+                        </button>
+
+                        {/* Mobile Nav Overlay */}
+                        {isMobileMenuOpen && (
+                            <div className="fixed inset-0 bg-[#050a07] flex flex-col justify-center items-center space-y-8 z-40">
+                                {links.map(link => (
+                                    <a 
+                                        key={link.name} 
+                                        href={link.href} 
+                                        className="text-2xl font-light text-gray-300"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                                <button 
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        onContactClick();
+                                    }}
+                                    className="text-2xl font-light text-cyan-400"
+                                >
+                                    Contact
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </nav>
+            );
+        };
+
+        const App = () => {
+            const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+            const [isContactOpen, setIsContactOpen] = useState(false);
+
+            useEffect(() => {
+                const handleMouseMove = (e) => {
+                    setMousePosition({ x: e.clientX, y: e.clientY });
+                };
+                window.addEventListener('mousemove', handleMouseMove);
+                return () => window.removeEventListener('mousemove', handleMouseMove);
+            }, []);
+
+            return (
+                <div className="min-h-screen relative selection:bg-cyan-400 selection:text-black">
+                    {/* Custom Cursor Follower (Desktop only cosmetic) */}
+                    <div 
+                        className="hidden md:block fixed w-8 h-8 border border-cyan-400/30 rounded-full pointer-events-none transition-transform duration-100 z-50 mix-blend-difference"
+                        style={{ 
+                            left: mousePosition.x, 
+                            top: mousePosition.y,
+                            transform: 'translate(-50%, -50%)'
+                        }}
+                    />
+
+                    <Navigation onContactClick={() => setIsContactOpen(true)} />
+                    
+                    <Modal 
+                        isOpen={isContactOpen} 
+                        onClose={() => setIsContactOpen(false)} 
+                        linkedinUrl={portfolioData.personal.linkedin}
+                    />
+
+                    <main className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+                        
+                        {/* Hero Section */}
+                        <section className="min-h-[80vh] flex flex-col justify-center mb-20">
+                            <p className="text-cyan-400 font-mono mb-6 fade-in-up tracking-wide">Hello, I am</p>
+                            <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight tracking-tight fade-in-up text-white" style={{ animationDelay: '0.1s' }}>
+                                Abdul Muhsin<br/>Hameed.
+                            </h1>
+                            <h2 className="text-2xl md:text-4xl text-secondary font-light max-w-4xl fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
+                                Bridging <span className="text-cyan-400 font-normal">Neuroscience</span>, <span className="text-blue-400 font-normal">Engineering</span>, <span className="text-violet-400 font-normal">Psychology</span>, and <span className="text-fuchsia-400 font-normal">Data</span>.
+                            </h2>
+                            <p className="mt-8 text-gray-400 max-w-xl leading-relaxed fade-in-up" style={{ animationDelay: '0.3s' }}>
+                                {portfolioData.personal.bio}
+                            </p>
+                            <div className="mt-12 fade-in-up" style={{ animationDelay: '0.4s' }}>
+                                <a href="#experience" className="inline-block px-8 py-3 border border-cyan-500/30 text-cyan-50 hover:bg-cyan-500/10 transition-all duration-300 rounded-full mr-4">
+                                    See my work
+                                </a>
+                                <button 
+                                    onClick={() => setIsContactOpen(true)}
+                                    className="inline-block px-8 py-3 text-gray-400 hover:text-white transition-colors"
+                                >
+                                    Get in touch
+                                </button>
+                            </div>
+                        </section>
+
+                        {/* About / Education Section */}
+                        <section id="about" className="mb-32">
+                            <SectionHeader number="01" title="Education & Background" />
+                            <div className="grid md:grid-cols-12 gap-12">
+                                <div className="md:col-span-5 text-secondary font-mono text-sm uppercase tracking-wider">
+                                    Academic Focus
+                                </div>
+                                <div className="md:col-span-7">
+                                    {portfolioData.education.map((edu, i) => (
+                                        <div key={i} className="mb-8">
+                                            <h3 className="text-2xl font-bold text-white mb-2">{edu.school}</h3>
+                                            <p className="text-lg text-cyan-400 mb-4">{edu.degree}</p>
+                                            <p className="text-gray-400 leading-relaxed mb-4">
+                                                <strong className="text-gray-200">Relevant Coursework:</strong> {edu.coursework}
+                                            </p>
+                                            <p className="font-mono text-xs text-gray-500">{edu.duration}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Experience Section */}
+                        <section id="experience" className="mb-32">
+                            <SectionHeader number="02" title="Experience" />
+                            <div className="grid md:grid-cols-12 gap-12">
+                                <div className="md:col-span-4 hidden md:block sticky top-32 h-fit">
+                                    <p className="text-secondary text-sm leading-relaxed">
+                                        My work spans from clinical research at major hospitals to neurotech development in startups. I specialize in data pipelines, project management, and behavioral phenotyping.
+                                    </p>
+                                </div>
+                                <div className="md:col-span-8">
+                                    {portfolioData.experience.map((exp, index) => (
+                                        <ExperienceCard key={index} exp={exp} index={index} />
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Projects & Research Section */}
+                        <section id="projects" className="mb-32">
+                            <SectionHeader number="03" title="Projects & Research" />
+                            
+                            <div className="grid md:grid-cols-2 gap-6 mb-20">
+                                {portfolioData.projects.map((project, index) => (
+                                    <ProjectCard key={index} project={project} index={index} />
+                                ))}
+                            </div>
+
+                            <div className="mb-12">
+                                <h3 className="text-xl font-bold text-white mb-8 flex items-center">
+                                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                                    Selected Publications & Presentations
+                                </h3>
+                                <div className="space-y-2">
+                                    {portfolioData.publications.map((pub, index) => (
+                                        <PubItem key={index} pub={pub} index={index} />
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Footer */}
+                        <section id="contact" className="py-20 text-center border-t border-cyan-900/20">
+                            <h2 className="text-4xl md:text-6xl font-bold mb-8">Let's Connect</h2>
+                            <p className="text-gray-400 max-w-xl mx-auto mb-12 text-lg">
+                                Exploring the intersection of brain and machine.
+                            </p>
+                            <button 
+                                onClick={() => setIsContactOpen(true)}
+                                className="inline-block px-10 py-4 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-500 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-cyan-900/20"
+                            >
+                                Say Hello
+                            </button>
+                            
+                            <p className="mt-24 text-xs text-gray-700">
+                                © {new Date().getFullYear()} Abdul Muhsin Hameed.
+                            </p>
+                        </section>
+
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
